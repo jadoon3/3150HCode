@@ -8,17 +8,40 @@
 
 void test() {
     // declare initial conditions
-    PIDDataSet TestPara={4,0.1,0.2};
-    Tilt.set(false);
     
-    MoveEncoderPID(TestPara, -50,12, 0.4,0,true);
-    TurnMaxTimePID(TestPara, 30, 0.9, true);
-    MoveEncoderPID(TestPara, -50,12, 0.4,0,true);
+    PIDDataSet TestPara={3,0.1,0.2};
+    Tilt.set(true);
+    
+    MoveEncoderPID(TestPara, 50,20, 0.4,0,true);
+    wait(100,msec);
     RunIntake(100);
-    TurnMaxTimePID(TestPara, 215, 0.9, true);
-    MoveEncoderPID(TestPara, -100,18, 0.4,0,true);
+    RunSecondStage(100);
+    TurnMaxTimePID(TestPara, 30, 0.4, true);
+    MoveEncoderPID(TestPara, 30,9,0.4,30,true);
+    wait(100,msec);
+    MoveEncoderPID(TestPara, 50,4,0.4,30,true);
+    wait(750,msec);
+    TurnMaxTimePID(TestPara,-45,0.4,true);
+    
+    MoveEncoderPID(TestPara, 50,17, 1,-45,true);
+    wait(100,msec);
+    RunSecondStage(0);
     RunRoller(-100);
     RunIntake(-100);
+    wait(3000,msec);
+    MoveEncoderPID(TestPara, -50,3, 0.4,-45,true);
+    TurnMaxTimePID(TestPara,135,0.4,true);
+    RunRoller(0);
+    RunIntake(0);
+    MoveEncoderPID(TestPara, 50,60.5, 0.4,135,true);
+    TurnMaxTimePID(TestPara,180,0.4,true);
+    Tilt.set(false);
+    MoveEncoderPID(TestPara, 50,22, 0.4,180,true);
+    RunIntake(100);
+    RunSecondStage(100);
+    wait(2500,msec);
+    MoveEncoderPID(TestPara, -50,7, 0.4,180,true);
+    MoveEncoderPID(TestPara, 50,28, 0.4,0,true);
     
     
     //MoveEncoderPID(TestPara, 100, 36 , 0.4,0,true);
